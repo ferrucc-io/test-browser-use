@@ -1,5 +1,7 @@
 # MCP server w/ Browser Use
 
+[![smithery badge](https://smithery.ai/badge/@JovaniPink/mcp-browser-use)](https://smithery.ai/server/@JovaniPink/mcp-browser-use)
+
 > MCP server for [browser-use](https://github.com/browser-use/browser-use).
 
 ## Overview
@@ -73,6 +75,14 @@ The server implements a browser automation system with:
 
 On MacOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
 On Windows: `%APPDATA%/Claude/claude_desktop_config.json`
+
+#### Installing via Smithery
+
+To install Browser Use for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@JovaniPink/mcp-browser-use):
+
+```bash
+npx -y @smithery/cli install @JovaniPink/mcp-browser-use --client claude
+```
 
 <details>
   <summary>Development Configuration</summary>
