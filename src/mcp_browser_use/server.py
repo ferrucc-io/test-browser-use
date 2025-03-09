@@ -19,7 +19,7 @@ from mcp_browser_use.utils import utils
 from mcp_browser_use.utils.agent_state import AgentState
 
 # Configure logging for the entire module
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, stream=sys.stderr, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 # Global references for single "running agent" approach
