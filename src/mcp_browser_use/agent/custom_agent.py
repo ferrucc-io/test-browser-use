@@ -26,7 +26,7 @@ from browser_use.controller.service import Controller
 from browser_use.telemetry.views import (
     AgentEndTelemetryEvent,
     AgentRunTelemetryEvent,
-    AgentStepErrorTelemetryEvent,
+    # AgentStepErrorTelemetryEvent not available in version 0.1.29
 )
 from browser_use.utils import time_execution_async
 from langchain_core.language_models.chat_models import BaseChatModel
@@ -421,12 +421,9 @@ class CustomAgent(Agent):
 
             for r in result:
                 if r.error:
-                    self.telemetry.capture(
-                        AgentStepErrorTelemetryEvent(
-                            agent_id=self.agent_id,
-                            error=r.error,
-                        )
-                    )
+                    # AgentStepErrorTelemetryEvent not available in version 0.1.29
+                    logger.error(f"Agent step error: {r.error}")
+                    # We'll log errors instead of using telemetry
 
             if state:
                 self._make_history_item(model_output, state, result)

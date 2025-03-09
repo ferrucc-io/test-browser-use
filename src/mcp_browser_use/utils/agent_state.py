@@ -21,7 +21,7 @@ class AgentState:
         self._stop_requested = asyncio.Event()
         self._last_valid_state: Optional[Any] = None
 
-    def request_stop(self) -> None:
+    async def request_stop(self) -> None:
         self._stop_requested.set()
 
     def clear_stop(self) -> None:

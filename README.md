@@ -1,6 +1,5 @@
 # MCP server w/ Browser Use
 
-[![smithery badge](https://smithery.ai/badge/@JovaniPink/mcp-browser-use)](https://smithery.ai/server/@JovaniPink/mcp-browser-use)
 
 > MCP server for [browser-use](https://github.com/browser-use/browser-use).
 
@@ -45,7 +44,7 @@ This project relies on the following Python packages:
 | [langchain-openai](https://api.python.langchain.com/en/latest/langchain_openai.html) | >=0.2.14 | LangChain integrations with OpenAI's models. Enables using OpenAI models (like GPT-4) within the LangChain framework. Used in this project for interacting with OpenAI's language and vision models. |
 | [langchain-ollama](https://api.python.langchain.com/en/latest/langchain_ollama/chat_models/ChatOllama.html) | >=0.2.2   | Langchain integration for Ollama, enabling local execution of LLMs. |
 | [openai](https://platform.openai.com/docs/api-reference)    | >=1.59.5  | Official Python client library for the OpenAI API. Used to interact directly with OpenAI's models (if needed, in addition to LangChain).                                                                    |
-| [browser-use](https://github.com/browser-use/browser-use) | ==0.1.19  | A powerful browser automation system that enables AI agents to interact with web browsers through natural language. The core library that powers this project's browser automation capabilities.      |
+| [browser-use](https://github.com/browser-use/browser-use) | ==0.1.29  | A powerful browser automation system that enables AI agents to interact with web browsers through natural language. The core library that powers this project's browser automation capabilities.      |
 | [instructor](https://github.com/jxnl/instructor)   | >=1.7.2   | Library for structured output prompting and validation with OpenAI models. Enables extracting structured data from model responses.                                                                       |
 | [pyperclip](https://pyperclip.readthedocs.io/)   | >=1.9.0   | Cross-platform Python module for copy and paste clipboard functions.                                                                                                                                  |
 
@@ -76,52 +75,35 @@ The server implements a browser automation system with:
 On MacOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
 On Windows: `%APPDATA%/Claude/claude_desktop_config.json`
 
-#### Installing via Smithery
-
-To install Browser Use for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@JovaniPink/mcp-browser-use):
-
-```bash
-npx -y @smithery/cli install @JovaniPink/mcp-browser-use --client claude
-```
 
 <details>
   <summary>Development Configuration</summary>
 
 ```json
-"mcpServers": {
-  "mcp_server_browser_use": {
-    "command": "uvx",
-    "args": [
-      "mcp-server-browser-use",
-    ],
-    "env": {
-      "OPENAI_ENDPOINT": "https://api.openai.com/v1",
-      "OPENAI_API_KEY": "",
-      "ANTHROPIC_API_KEY": "",
-      "GOOGLE_API_KEY": "",
-      "AZURE_OPENAI_ENDPOINT": "",
-      "AZURE_OPENAI_API_KEY": "",
-      // "DEEPSEEK_ENDPOINT": "https://api.deepseek.com",
-      // "DEEPSEEK_API_KEY": "",
-      // Set to false to disable anonymized telemetry
-      "ANONYMIZED_TELEMETRY": "false",
-      // Chrome settings
-      "CHROME_PATH": "",
-      "CHROME_USER_DATA": "",
-      "CHROME_DEBUGGING_PORT": "9222",
-      "CHROME_DEBUGGING_HOST": "localhost",
-      // Set to true to keep browser open between AI tasks
-      "CHROME_PERSISTENT_SESSION": "false",
-      // Model settings
-      "MCP_MODEL_PROVIDER": "anthropic",
-      "MCP_MODEL_NAME": "claude-3-5-sonnet-20241022",
-      "MCP_TEMPERATURE": "0.3",
-      "MCP_MAX_STEPS": "30",
-      "MCP_USE_VISION": "true",
-      "MCP_MAX_ACTIONS_PER_STEP": "5",
-      "MCP_TOOL_CALL_IN_CONTENT": "true"
-    }
-  }
+{
+  "OPENAI_ENDPOINT": "https://api.openai.com/v1",
+  "OPENAI_API_KEY": "",
+  "ANTHROPIC_API_KEY": "",
+  "GOOGLE_API_KEY": "",
+  "AZURE_OPENAI_ENDPOINT": "",
+  "AZURE_OPENAI_API_KEY": "",
+  // "DEEPSEEK_ENDPOINT": "https://api.deepseek.com",
+  // "DEEPSEEK_API_KEY": "",
+  // Chrome settings
+  "CHROME_PATH": "",
+  "CHROME_USER_DATA": "",
+  "CHROME_DEBUGGING_PORT": "9222",
+  "CHROME_DEBUGGING_HOST": "localhost",
+  // Set to true to keep browser open between AI tasks
+  "CHROME_PERSISTENT_SESSION": "false",
+  // Model settings
+  "MCP_MODEL_PROVIDER": "anthropic",
+  "MCP_MODEL_NAME": "claude-3-5-sonnet-20241022",
+  "MCP_TEMPERATURE": "0.3",
+  "MCP_MAX_STEPS": "30",
+  "MCP_USE_VISION": "true",
+  "MCP_MAX_ACTIONS_PER_STEP": "5",
+  "MCP_TOOL_CALL_IN_CONTENT": "true"
 }
 ```
 
@@ -165,8 +147,8 @@ MCP_MAX_ACTIONS_PER_STEP=5
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/JovaniPink/mcp-browser-use.git
-cd mcp-browser-use
+git clone https://github.com/ferrucc-io/test-browser-use.git
+cd test-browser-use
 ```
 
 2. Create and activate virtual environment:
@@ -182,18 +164,29 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 uv sync
 ```
 
-4. Start the server
+4. Configure environment variables:
+
+```bash
+cp sample.env.env .env
+# Edit .env with your API keys (especially ANTHROPIC_API_KEY)
+# If you don't want to use a local Chrome instance, set:
+# CHROME_PATH=  (leave it empty)
+```
+
+5. Start the server:
 
 ```bash
 uv run mcp-browser-use
 ```
+
+> **Note**: This project specifically requires browser-use==0.1.29. Using a different version may cause compatibility issues.
 
 ### Debugging
 
 For debugging, use the [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
 
 ```bash
-npx @modelcontextprotocol/inspector uv --directory /path/to/project run mcp-server-browser-use
+npx @modelcontextprotocol/inspector uv --directory /path/to/project run mcp-browser-use
 ```
 
 The Inspector will display a URL for the debugging interface.
